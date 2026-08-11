@@ -6,7 +6,11 @@ generator-based progress helper, a live "tracker" widget with a spinner header, 
 human-readable rate/throughput column, and a self-contained animated "shimmer" progress
 display for CLI tools.
 
-![Demo of every rich-utils helper running in sequence: rich_track, RichTracker, rich_progress, rich_pandas, RateColumn, and ShimmerProgress](assets/demo.gif)
+<!-- demo:start -->
+https://github.com/user-attachments/assets/c882526f-19de-466b-87ba-81b9d792c83b
+
+<sub>Prefer a static image? [GIF](https://github.com/user-attachments/assets/71c8d605-4e82-4beb-bf49-f456630447f2)</sub>
+<!-- demo:end -->
 
 ## Installation
 
@@ -109,10 +113,14 @@ uv run python scripts/demos/shimmer_progress_demo.py
 ```
 
 `scripts/run_all_demos.py` runs all of them back to back, and
-`scripts/build_demo_gif.sh` re-records `assets/demo.gif` from that run using
-[VHS](https://github.com/charmbracelet/vhs) (`brew install vhs`):
+`scripts/build_demo_gif.sh` re-records it with [VHS](https://github.com/charmbracelet/vhs)
+(GIF + WebM), uploads both via the [`gh-image`](https://github.com/drogers0/gh-image) `gh`
+extension, and rewrites the demo embed at the top of this README (between the demo-block
+HTML comment markers) to point at the freshly uploaded files:
 
 ```bash
 uv run python scripts/run_all_demos.py   # run every demo in one go
-./scripts/build_demo_gif.sh              # re-record assets/demo.gif
+./scripts/build_demo_gif.sh              # re-record, upload, and update the README
 ```
+
+Requires `vhs` (`brew install vhs`) and `gh` authenticated against this repo.
