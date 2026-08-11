@@ -12,7 +12,13 @@ class RateColumn(ProgressColumn):
         self.unit = unit or "it"
 
     def render(self, task: Task) -> Text:
-        """Render the speed in iterations per second."""
+        """Render the speed in iterations per second.
+
+        Returns
+        -------
+        Text
+            The formatted rate string, or empty text if no speed is available.
+        """
         speed = task.finished_speed or task.speed
         if speed is None:
             return Text("", style="progress.percentage")

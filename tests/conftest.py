@@ -3,7 +3,7 @@ import time
 
 import pytest
 from rich.console import Console
-from rich.progress import Task
+from rich.progress import Task, TaskID
 
 
 @pytest.fixture
@@ -19,7 +19,7 @@ def make_task(
     fields: dict | None = None,
 ) -> Task:
     return Task(
-        id=0,  # pyright: ignore[reportArgumentType]
+        id=TaskID(0),
         description=description,
         total=total,
         completed=completed,

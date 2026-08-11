@@ -32,3 +32,17 @@ testpaths = ["tests"]
 
 [tool.coverage.run]
 source = ["src/rich_utils"]
+
+[tool.ruff.lint]
+# Any is the correct type for **kwargs passthrough to Rich's own
+# loosely-typed Progress/Task APIs and for the pandas monkey-patch helpers.
+extend-ignore = ["ANN401"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = [
+    "ANN",     # test functions don't need full type annotations
+    "SLF001",  # tests assert on private state to verify internal behavior
+    "PLR2004", # magic values are fine as literal expected values in tests
+    "INP001",  # tests/ is not a package
+    "D",       # tests don't need docstrings
+]

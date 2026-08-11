@@ -1,2 +1,5 @@
-def main() -> None:
-    print("Hello from rich-utils!")
+"""Rich-based progress bar and tracking utilities."""
+
+from .cli import main
+
+__all__ = ["main"]

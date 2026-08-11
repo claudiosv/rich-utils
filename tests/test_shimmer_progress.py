@@ -1,6 +1,7 @@
 import sys
+from typing import TYPE_CHECKING
 
-import pytest
+from conftest import make_task
 
 from rich_utils.shimmer_progress import (
     ASCII_GLYPHS,
@@ -14,8 +15,8 @@ from rich_utils.shimmer_progress import (
     supports_unicode,
 )
 
-from conftest import make_task
-
+if TYPE_CHECKING:
+    import pytest
 
 # --- supports_unicode / get_glyphs -----------------------------------------
 
@@ -85,7 +86,8 @@ def test_spinner_column_renders_a_single_glyph():
     text = column.render(task)
 
     assert str(text) in UNICODE_GLYPHS.spinner
-    assert text.style is not None and text.style.startswith("bold rgb(")
+    assert isinstance(text.style, str)
+    assert text.style.startswith("bold rgb(")
 
 
 def test_bar_column_no_total_returns_empty():

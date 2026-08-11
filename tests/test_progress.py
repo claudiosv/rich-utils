@@ -2,7 +2,6 @@ import pandas as pd
 
 from rich_utils.progress import RichTracker, rich_pandas, rich_progress, rich_track
 
-
 # --- rich_track -----------------------------------------------------------
 
 
@@ -31,9 +30,10 @@ def test_rich_progress_is_a_working_context_manager(console):
 
 
 def test_rich_progress_without_rate_column_class(console):
-    with rich_progress(
-        use_rate_column_class=False, console=console, total=1
-    ) as (progress, task):
+    with rich_progress(use_rate_column_class=False, console=console, total=1) as (
+        progress,
+        task,
+    ):
         progress.advance(task)
         assert progress.tasks[task].completed == 1
 
@@ -42,15 +42,16 @@ def test_rich_progress_wrapper_timer_updates_speed_field(monkeypatch, console):
     """wrapper_timer is a closure defined inside rich_progress but never
     invoked by the function itself (it's dead code carried over from an
     earlier decorator-style design). It's only reachable through the
-    suspended generator's frame locals, which is how this test gets at it."""
+    suspended generator's frame locals, which is how this test gets at it.
+    """
     times = iter([100.0, 100.5])
-    monkeypatch.setattr(
-        "rich_utils.progress.time.time", lambda: next(times)
-    )
+    monkeypatch.setattr("rich_utils.progress.time.time", lambda: next(times))
 
     cm = rich_progress(use_rate_column_class=False, console=console, total=1)
     progress, task = cm.__enter__()
-    wrapper_timer = cm.gen.gi_frame.f_locals["wrapper_timer"]
+    # gi_frame isn't in the Generator protocol's type stub, but it's present
+    # on the real generator object `@contextmanager` wraps at runtime.
+    wrapper_timer = cm.gen.gi_frame.f_locals["wrapper_timer"]  # ty: ignore[unresolved-attribute]
 
     wrapper_timer()
 
@@ -113,7 +114,8 @@ def test_rich_tracker_description_param_is_not_applied_to_task(console):
     "description" from **kwargs (always absent, since it's a named
     parameter), so the task's own description is always the default
     "Processing...", even though `description=` is stored on
-    `self.description` and used elsewhere (e.g. `generate_display`)."""
+    `self.description` and used elsewhere (e.g. `generate_display`).
+    """
     with RichTracker(description="Custom desc", console=console, total=1) as tracker:
         assert tracker.description == "Custom desc"
         assert tracker.task.description == "Processing..."

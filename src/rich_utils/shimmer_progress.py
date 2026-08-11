@@ -3,10 +3,11 @@ import os
 import sys
 import time
 from dataclasses import dataclass
+from types import TracebackType
 from typing import Self
 
 from rich.console import Console
-from rich.progress import Progress, ProgressColumn, Task, TextColumn
+from rich.progress import Progress, ProgressColumn, Task, TaskID, TextColumn
 from rich.text import Text
 
 
@@ -84,14 +85,20 @@ def get_glyphs() -> Glyphs:
 
 
 def lerp(a: float, b: float, t: float) -> int:
-    """Linear interpolation helper."""
+    """Linear interpolation helper.
+
+    Returns
+    -------
+    int
+        The value at `t` between `a` and `b`, rounded to the nearest int.
+    """
     return round(a + (b - a) * t)
 
 
 class ShimmerSpinnerColumn(ProgressColumn):
-    """
-    A progress column that cycles spinner glyphs and applies the sine-wave
-    shimmer color effect over time.
+    """A progress column that cycles spinner glyphs.
+
+    Applies the sine-wave shimmer color effect over time.
     """
 
     def __init__(self, start_time: float, glyphs: Glyphs) -> None:
@@ -115,7 +122,7 @@ class ShimmerSpinnerColumn(ProgressColumn):
 
 
 class ShimmerBarColumn(ProgressColumn):
-    """A progress column that draws a progress bar with a sweeping shimmer light effect."""
+    """A progress column that draws a bar with a sweeping shimmer light effect."""
 
     def __init__(self, start_time: float, glyphs: Glyphs) -> None:
         self.start_time = start_time
@@ -177,9 +184,10 @@ class ShimmerStatsColumn(ProgressColumn):
 
 
 class ShimmerProgress:
-    """
-    Main orchestration class that matches your TypeScript worker API.
-    Handles phase transitions and logs them dynamically above the active progress bar.
+    """Main orchestration class that matches your TypeScript worker API.
+
+    Handles phase transitions and logs them dynamically above the active
+    progress bar.
     """
 
     def __init__(self, console: Console | None = None) -> None:
@@ -197,7 +205,7 @@ class ShimmerProgress:
             transient=True,  # Removes the task bar on finish naturally
             refresh_per_second=20,  # Equivalent to 50ms interval loop
         )
-        self._current_task_id: Task.ID | None = None
+        self._current_task_id: TaskID | None = None
         self._last_phase: str = ""
         self._last_count: int = 0
         self._last_total: int = 0
@@ -208,12 +216,15 @@ class ShimmerProgress:
         return self
 
     def __exit__(
-        self, exc_type: type | None, exc_val: Exception | None, exc_tb: type | None
+        self,
+        exc_type: type[BaseException] | None,
+        exc_val: BaseException | None,
+        exc_tb: TracebackType | None,
     ) -> None:
         self.stop()
 
     def start(self) -> None:
-        """Starts the rich Progress live context."""
+        """Start the rich Progress live context."""
         self._progress.start()
         self._running = True
 

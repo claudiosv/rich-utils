@@ -1,6 +1,6 @@
-from rich_utils.rate_column import RateColumn
-
 from conftest import make_task
+
+from rich_utils.rate_column import RateColumn
 
 
 def test_render_no_speed_returns_empty_text():
