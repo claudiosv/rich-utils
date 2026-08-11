@@ -48,10 +48,9 @@ from rich_utils.progress import rich_progress
 
 with rich_progress(total=100, description="Working...") as (progress, task, wrap):
     for item in items:
-        do_work(item)
-        # Advance one step; with use_rate_column_class=False, this times the
-        # gap since the last call to report per-step throughput.
-        wrap()
+        # `wrap` calls the function, advances the task, and (with
+        # use_rate_column_class=False) records how long the call took.
+        wrap(do_work, item)
 ```
 
 ### `rich_pandas` — `progress_apply` for pandas DataFrames
