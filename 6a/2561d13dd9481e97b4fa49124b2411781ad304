@@ -1,0 +1,23 @@
+pyproject.toml
+  s_1916696e74b455::t_b05d390dbd634e 18
+tests/test_progress.py
+  s_1916696e74b455::t_d3ce7abfe54d02 41-62
+src/rich_utils/progress.py
+  s_1916696e74b455::t_f689a9e3ebec2a 108-126
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "6a2561d13dd9481e97b4fa49124b2411781ad304",
+  "prompts": {},
+  "sessions": {
+    "s_1916696e74b455": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c7d1308e-a823-4273-8434-53d749b3f00e",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Claudio Spiess <claudiosv@users.noreply.github.com>"
+    }
+  }
+}
