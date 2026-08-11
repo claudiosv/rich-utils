@@ -1,0 +1,48 @@
+scripts/demos/shimmer_progress_demo.py
+  s_1916696e74b455::t_1fc2c58faa5980 1-24
+scripts/demos/rich_track_demo.py
+  s_1916696e74b455::t_4bb2e593954ab1 1-5,7-10,12-16
+  s_1916696e74b455::t_a86d808541d933 6,11
+.gitignore
+  s_1916696e74b455::t_d7ae733b81717a 19-21
+scripts/demos/rate_column_demo.py
+  s_1916696e74b455::t_c9168893cf9fc9 1-30
+scripts/run_all_demos.py
+  s_1916696e74b455::t_60c45c63680d25 1-36
+README.md
+  s_1916696e74b455::t_9c965bb2860c5d 97-118
+  s_1916696e74b455::t_c4be57ef4e7500 9-10
+  s_1916696e74b455::t_ab90b977a62bed 30
+scripts/demo.tape
+  s_1916696e74b455::t_a71fe07fa0204b 1-22
+scripts/demos/rich_tracker_demo.py
+  s_1916696e74b455::t_af8539e60f3761 12
+  s_1916696e74b455::t_73e17cf369790e 1-10,13-18
+  s_1916696e74b455::t_9a491eeb62401f 11
+scripts/demos/rich_progress_demo.py
+  s_1916696e74b455::t_8f8bb4cf2ba691 9
+  s_1916696e74b455::t_f41604d322b60a 1-8,10-25
+scripts/demos/rich_pandas_demo.py
+  s_1916696e74b455::t_77a7ca7f227234 19
+  s_1916696e74b455::t_aea61365f60c57 1-18,20-23
+src/rich_utils/progress.py
+  s_1916696e74b455::t_43883a58505fae 287,290
+tests/test_progress.py
+  s_1916696e74b455::t_88d3f6576dd530 119-122
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "dd2b7083cc5f5720d73ee103af3853abb6cc0068",
+  "prompts": {},
+  "sessions": {
+    "s_1916696e74b455": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c7d1308e-a823-4273-8434-53d749b3f00e",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Claudio Spiess <claudiosv@users.noreply.github.com>"
+    }
+  }
+}
