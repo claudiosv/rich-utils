@@ -1,0 +1,18 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Test / coverage artifacts
+.coverage
+htmlcov/
+.pytest_cache/
+
+# CodeGraph local index
+.codegraph/
