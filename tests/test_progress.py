@@ -38,6 +38,28 @@ def test_rich_progress_without_rate_column_class(console):
         assert progress.tasks[task].completed == 1
 
 
+def test_rich_progress_wrapper_timer_updates_speed_field(monkeypatch, console):
+    """wrapper_timer is a closure defined inside rich_progress but never
+    invoked by the function itself (it's dead code carried over from an
+    earlier decorator-style design). It's only reachable through the
+    suspended generator's frame locals, which is how this test gets at it."""
+    times = iter([100.0, 100.5])
+    monkeypatch.setattr(
+        "rich_utils.progress.time.time", lambda: next(times)
+    )
+
+    cm = rich_progress(use_rate_column_class=False, console=console, total=1)
+    progress, task = cm.__enter__()
+    wrapper_timer = cm.gen.gi_frame.f_locals["wrapper_timer"]
+
+    wrapper_timer()
+
+    assert progress.tasks[task].completed == 1
+    assert progress.tasks[task].fields["speed"] == 2
+
+    cm.__exit__(None, None, None)
+
+
 # --- rich_pandas --------------------------------------------------------
 
 

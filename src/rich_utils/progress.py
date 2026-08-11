@@ -105,6 +105,25 @@ def rich_progress(
         speed = kwargs.pop("speed", 0)
         task = progress.add_task(description, speed=speed, **kwargs)
 
+        def wrapper_timer(*args, **kwargs) -> None:
+            start = time.time()
+            # result = func(*args, **kwargs)
+            end = time.time()
+
+            # Compute speed
+            elapsed = end - start
+            if elapsed > 0:
+                progress.tasks[task].fields["speed"] = round(1 / elapsed)
+
+            progress.advance(task)
+
+        def wrapper(*args, **kwargs) -> None:
+            # result = func(*args, **kwargs)
+            progress.advance(task)
+            # return result
+
+        wrapper = wrapper if use_rate_column_class else wrapper_timer
+
         yield progress, task
 
 
