@@ -7,9 +7,9 @@ human-readable rate/throughput column, and a self-contained animated "shimmer" p
 display for CLI tools.
 
 <!-- demo:start -->
-https://github.com/user-attachments/assets/c882526f-19de-466b-87ba-81b9d792c83b
+![Demo of every rich-utils helper running in sequence: rich_track, RichTracker, rich_progress, rich_pandas, RateColumn, and ShimmerProgress](https://github.com/user-attachments/assets/2dd860c2-13cc-46bc-b47b-e8e7bd28e7eb)
 
-<sub>Prefer a static image? [GIF](https://github.com/user-attachments/assets/71c8d605-4e82-4beb-bf49-f456630447f2)</sub>
+<sub>Prefer a WebM? [WebM](https://github.com/user-attachments/assets/02e5e28f-9054-443c-9de1-63deaabf921b)</sub>
 <!-- demo:end -->
 
 ## Installation

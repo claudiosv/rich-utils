@@ -16,12 +16,12 @@ from rich.console import Console
 console = Console()
 
 DEMOS = [
-    ("rich_track", rich_track_demo.main),
+    ("ShimmerProgress", shimmer_progress_demo.main),
     ("RichTracker", rich_tracker_demo.main),
+    ("rich_track", rich_track_demo.main),
     ("rich_progress", rich_progress_demo.main),
     ("rich_pandas", rich_pandas_demo.main),
     ("RateColumn", rate_column_demo.main),
-    ("ShimmerProgress", shimmer_progress_demo.main),
 ]
 
 

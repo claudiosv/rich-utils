@@ -2,8 +2,7 @@
 # Records scripts/run_all_demos.py with VHS (GIF + WebM, both via VHS's own
 # defaults), uploads both via the gh-image extension, and rewrites the demo
 # block in README.md (between the demo:start/demo:end markers) to embed the
-# uploaded WebM as an inline autoplaying video, with the GIF as a static
-# alternate.
+# uploaded GIF, with the WebM linked as an alternate.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -58,7 +57,7 @@ Set FontSize 22
 Set Width 1300
 Set Height 680
 Set Padding 15
-Set Theme "Dracula"
+Set Theme "OneDark"
 
 Hide
 Type "clear"
@@ -81,11 +80,17 @@ echo "${refs}"
 
 gif_ref="$(printf '%s\n' "${refs}" | sed -n '1p')"
 webm_ref="$(printf '%s\n' "${refs}" | sed -n '2p')"
+
+# gh-image wraps image uploads as `![name](url)`, so pull the URL out of the
+# parens to swap in our own alt text. Video uploads print as a bare URL
+# already (no `![]()` wrapper), so webm_ref needs no extraction - the same
+# grep would just find no parens to match and yield nothing.
 gif_url="$(printf '%s' "${gif_ref}" | grep -oE '\(https://[^)]+\)' | tr -d '()')"
+gif_alt="Demo of every rich-utils helper running in sequence: rich_track, RichTracker, rich_progress, rich_pandas, RateColumn, and ShimmerProgress"
 
-demo_md="${webm_ref}
+demo_md="![${gif_alt}](${gif_url})
 
-<sub>Prefer a static image? [GIF](${gif_url})</sub>"
+<sub>Prefer a WebM? [WebM](${webm_ref})</sub>"
 
 echo "Updating README.md demo block..."
 DEMO_MD="${demo_md}" perl -0777 -pe '
