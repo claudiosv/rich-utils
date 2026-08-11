@@ -108,11 +108,11 @@ uv run python scripts/demos/rate_column_demo.py
 uv run python scripts/demos/shimmer_progress_demo.py
 ```
 
-`scripts/run_all_demos.py` runs all of them back to back (used to record the GIF
-above), and `scripts/demo.tape` is the [VHS](https://github.com/charmbracelet/vhs)
-tape that recorded it:
+`scripts/run_all_demos.py` runs all of them back to back, and
+`scripts/build_demo_gif.sh` re-records `assets/demo.gif` from that run using
+[VHS](https://github.com/charmbracelet/vhs) (`brew install vhs`):
 
 ```bash
 uv run python scripts/run_all_demos.py   # run every demo in one go
-vhs scripts/demo.tape                    # re-record assets/demo.gif
+./scripts/build_demo_gif.sh              # re-record assets/demo.gif
 ```

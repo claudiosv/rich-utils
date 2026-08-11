@@ -8,9 +8,9 @@ from rich_utils.shimmer_progress import ShimmerProgress
 
 def main() -> None:
     phases = [
-        ("Scanning AST", 20, 0.03),
-        ("Transpiling", 25, 0.02),
-        ("Minifying", 15, 0.02),
+        ("Scanning AST", 30, 0.03),
+        ("Transpiling", 200, 0.02),
+        ("Minifying", 50, 0.02),
     ]
 
     with ShimmerProgress() as progress:

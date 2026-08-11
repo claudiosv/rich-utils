@@ -298,32 +298,3 @@ class ShimmerProgress:
                 self._finish_phase(self._last_phase, self._last_count, self._last_total)
             self._progress.stop()
             self._running = False
-
-
-def main() -> None:
-    mode = "release"
-    with ShimmerProgress() as progress:
-        match mode:
-            case "debug":
-                phases = [
-                    ("Scanning AST", 0, 45, 0.04),  # Indeterminate
-                    ("Linking", 100, 100, 0.02),  # Determinate
-                ]
-            case "release":
-                phases = [
-                    ("Scanning AST", 0, 30, 0.03),  # Indeterminate
-                    ("Transpiling", 200, 200, 0.01),  # Determinate
-                    ("Minifying", 50, 50, 0.02),  # Determinate
-                ]
-            case _:
-                phases = [("Generic processing", 10, 10, 0.1)]
-
-        for phase_name, total, iterations, delay in phases:
-            for i in range(1, iterations + 1):
-                # Using total=0 renders the indeterminate counter instead of a percentage bar
-                progress.on_progress(phase_name, current=i, total=max(0, total))
-                time.sleep(delay)
-
-
-if __name__ == "__main__":
-    main()

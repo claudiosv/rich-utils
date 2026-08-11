@@ -181,22 +181,6 @@ class RichTracker:
         **kwargs: Any,
     ) -> None:
         self.description = description
-        # self.progress = Progress(
-        #     "[progress.description]{task.description}",
-        #     TaskProgressColumn(show_speed=True),
-        #     BarColumn(bar_width=None),
-        #     MofNCompleteColumn(),
-        #     TextColumn("["),
-        #     TimeElapsedColumn(),
-        #     TextColumn("<"),
-        #     TimeRemainingColumn(),
-        #     TextColumn(","),
-        #     RateColumn(),
-        #     TextColumn("]"),
-        #     console=console,
-        # )
-        # if unit is None:
-        # unit = "it"
         self.unit = unit or "it"
         rate_column = (
             RateColumn(unit=self.unit)
@@ -205,7 +189,6 @@ class RichTracker:
         )
 
         self.progress = Progress(
-            # "[progress.description]{task.description}",
             TaskProgressColumn(show_speed=True),
             BarColumn(bar_width=None),
             MofNCompleteColumn(),
@@ -218,7 +201,6 @@ class RichTracker:
             TextColumn("]"),
             console=console,
             speed_estimate_period=kwargs.pop("speed_estimate_period", 60),
-            # get_time=time.time,
         )
 
         description = kwargs.pop("description", "Processing...")
@@ -268,7 +250,6 @@ class RichTracker:
         Self
             This tracker instance.
         """
-        # self.progress.__enter__()
         self.live.start()
 
         return self
@@ -280,7 +261,6 @@ class RichTracker:
         traceback: TracebackType | None,
     ) -> None:
         """Stop the live display."""
-        # self.progress.__exit__(exc_type, exc_value, traceback)
         self.live.stop()
 
     def track(self, iterable: Collection) -> Generator[Any, Any]:
