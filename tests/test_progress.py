@@ -39,34 +39,37 @@ def test_rich_progress_without_rate_column_class(console):
         assert progress.tasks[task].completed == 1
 
 
-def test_rich_progress_wrap_calls_function_and_advances(console):
-    calls = []
+def test_rich_progress_wrap_advances_task(console):
     with rich_progress(console=console, total=2) as (progress, task, wrap):
-        result_a = wrap(calls.append, "a")
-        result_b = wrap(calls.append, "b")
+        wrap()
+        wrap()
 
-    assert calls == ["a", "b"]
-    assert result_a is None
-    assert result_b is None
     assert progress.tasks[task].completed == 2
 
 
-def test_rich_progress_wrap_without_rate_column_class_records_speed(
+def test_rich_progress_wrap_without_rate_column_class_records_interval_speed(
     monkeypatch, console
 ):
-    times = iter([100.0, 100.5])
+    """wrapper_timer times the gap between successive `wrap()` calls -
+    i.e. how long the caller spent doing its own work in between - not
+    the duration of any call happening inside `wrap` itself."""
+    # First value is consumed to seed the "last call" timestamp before
+    # the context manager yields; the rest are consumed one per wrap().
+    times = iter([100.0, 100.5, 101.0])
     monkeypatch.setattr("rich_utils.progress.time.time", lambda: next(times))
 
-    with rich_progress(use_rate_column_class=False, console=console, total=1) as (
+    with rich_progress(use_rate_column_class=False, console=console, total=2) as (
         progress,
         task,
         wrap,
     ):
-        result = wrap(lambda x: x * 2, 21)
+        wrap()
+        assert progress.tasks[task].fields["speed"] == 2  # 1 / (100.5 - 100.0)
 
-    assert result == 42
-    assert progress.tasks[task].completed == 1
-    assert progress.tasks[task].fields["speed"] == 2
+        wrap()
+        assert progress.tasks[task].fields["speed"] == 2  # 1 / (101.0 - 100.5)
+
+    assert progress.tasks[task].completed == 2
 
 
 # --- rich_pandas --------------------------------------------------------
