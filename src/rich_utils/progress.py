@@ -94,7 +94,7 @@ def rich_progress(
     use_rate_column_class: bool = True,
     console: Console | None = None,
     **kwargs: Any,
-) -> Generator[tuple[Progress, TaskID]]:
+) -> Generator[tuple[Progress, TaskID, Callable[..., Any]]]:
     rate_column = (
         RateColumn()
         if use_rate_column_class
@@ -119,9 +119,9 @@ def rich_progress(
         speed = kwargs.pop("speed", 0)
         task = progress.add_task(description, speed=speed, **kwargs)
 
-        def wrapper_timer(*_args: Any, **_kwargs: Any) -> None:
+        def wrapper_timer(func: Callable[..., Any], *args: Any, **kwargs: Any) -> Any:
             start = time.time()
-            # result = func(*args, **kwargs)
+            result = func(*args, **kwargs)
             end = time.time()
 
             # Compute speed
@@ -130,17 +130,18 @@ def rich_progress(
                 progress.tasks[task].fields["speed"] = round(1 / elapsed)
 
             progress.advance(task)
+            return result
 
-        def wrapper(*_args: Any, **_kwargs: Any) -> None:
-            # result = func(*args, **kwargs)
+        def wrapper(func: Callable[..., Any], *args: Any, **kwargs: Any) -> Any:
+            result = func(*args, **kwargs)
             progress.advance(task)
-            # return result
+            return result
 
-        _active_wrapper: Callable[..., None] = (
+        active_wrapper: Callable[..., Any] = (
             wrapper if use_rate_column_class else wrapper_timer
         )
 
-        yield progress, task
+        yield progress, task, active_wrapper
 
 
 def rich_track(

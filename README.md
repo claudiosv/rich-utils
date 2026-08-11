@@ -46,9 +46,10 @@ with RichTracker(description="Crunching numbers", total=100) as tracker:
 ```python
 from rich_utils.progress import rich_progress
 
-with rich_progress(total=100, description="Working...") as (progress, task):
+with rich_progress(total=100, description="Working...") as (progress, task, wrap):
     for _ in range(100):
-        progress.advance(task)
+        progress.advance(task)  # advance manually, or...
+        wrap(some_function, arg)  # ...call `wrap` to run + advance + track speed in one step
 ```
 
 ### `rich_pandas` — `progress_apply` for pandas DataFrames

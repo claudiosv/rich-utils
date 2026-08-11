@@ -23,7 +23,7 @@ def test_rich_track_empty_iterable(console):
 
 
 def test_rich_progress_is_a_working_context_manager(console):
-    with rich_progress(console=console, total=3) as (progress, task):
+    with rich_progress(console=console, total=3) as (progress, task, _wrap):
         assert progress.tasks[task].total == 3
         progress.advance(task)
         assert progress.tasks[task].completed == 1
@@ -33,32 +33,40 @@ def test_rich_progress_without_rate_column_class(console):
     with rich_progress(use_rate_column_class=False, console=console, total=1) as (
         progress,
         task,
+        _wrap,
     ):
         progress.advance(task)
         assert progress.tasks[task].completed == 1
 
 
-def test_rich_progress_wrapper_timer_updates_speed_field(monkeypatch, console):
-    """wrapper_timer is a closure defined inside rich_progress but never
-    invoked by the function itself (it's dead code carried over from an
-    earlier decorator-style design). It's only reachable through the
-    suspended generator's frame locals, which is how this test gets at it.
-    """
+def test_rich_progress_wrap_calls_function_and_advances(console):
+    calls = []
+    with rich_progress(console=console, total=2) as (progress, task, wrap):
+        result_a = wrap(calls.append, "a")
+        result_b = wrap(calls.append, "b")
+
+    assert calls == ["a", "b"]
+    assert result_a is None
+    assert result_b is None
+    assert progress.tasks[task].completed == 2
+
+
+def test_rich_progress_wrap_without_rate_column_class_records_speed(
+    monkeypatch, console
+):
     times = iter([100.0, 100.5])
     monkeypatch.setattr("rich_utils.progress.time.time", lambda: next(times))
 
-    cm = rich_progress(use_rate_column_class=False, console=console, total=1)
-    progress, task = cm.__enter__()
-    # gi_frame isn't in the Generator protocol's type stub, but it's present
-    # on the real generator object `@contextmanager` wraps at runtime.
-    wrapper_timer = cm.gen.gi_frame.f_locals["wrapper_timer"]  # ty: ignore[unresolved-attribute]
+    with rich_progress(use_rate_column_class=False, console=console, total=1) as (
+        progress,
+        task,
+        wrap,
+    ):
+        result = wrap(lambda x: x * 2, 21)
 
-    wrapper_timer()
-
+    assert result == 42
     assert progress.tasks[task].completed == 1
     assert progress.tasks[task].fields["speed"] == 2
-
-    cm.__exit__(None, None, None)
 
 
 # --- rich_pandas --------------------------------------------------------
