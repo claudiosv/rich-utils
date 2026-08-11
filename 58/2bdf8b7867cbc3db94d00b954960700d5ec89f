@@ -1,0 +1,62 @@
+pyproject.toml
+  s_1916696e74b455::t_fc3ecedd4b1bae 35-48
+src/rich_utils/rate_column.py
+  s_1916696e74b455::t_2ee8ba1c1776b7 15-21
+src/rich_utils/progress.py
+  s_1916696e74b455::t_5ecbce3607bd99 43
+  s_1916696e74b455::t_3b8ead501d6524 79-81,85,87-89
+  s_1916696e74b455::t_044af69f8c798e 246-247,252,259,262,275-281
+  s_1916696e74b455::t_de0a88cad61607 180
+  s_1916696e74b455::t_075e462c0f9d74 139
+  s_1916696e74b455::t_0719f530840297 61,74
+  s_1916696e74b455::t_6196e6f17c8ca6 122,134
+  s_1916696e74b455::t_f53723cd06abe0 140-141
+  s_1916696e74b455::t_7f68eccc0e6193 97
+  s_1916696e74b455::t_88a6b9751141c2 263-269
+  s_1916696e74b455::t_210b7d81209836 20
+  s_1916696e74b455::t_b362d8c2368bfe 229
+  s_1916696e74b455::t_2078415cf16055 3-4,12,18-19,27
+  s_1916696e74b455::t_8dd33a3de0208f 94-96
+  s_1916696e74b455::t_525129b9394259 31-34
+tests/test_rate_column.py
+  s_1916696e74b455::t_16625e5d64ff2e 3
+  s_1916696e74b455::t_ff65464c794276 4
+src/rich_utils/__init__.py
+  s_1916696e74b455::t_827b74fe7b1fbb 1-5
+tests/conftest.py
+  s_1916696e74b455::t_145840866c8a8a 22
+  s_1916696e74b455::t_81b0ffb4f09840 6
+src/rich_utils/cli.py
+  s_1916696e74b455::t_e0ed33d50f29ae 1-2
+tests/test_shimmer_progress.py
+  s_1916696e74b455::t_0e9407100595d9 89
+  s_1916696e74b455::t_16625e5d64ff2e 2,4,18-19,90
+src/rich_utils/shimmer_progress.py
+  s_1916696e74b455::t_2877d93db47a79 6
+  s_1916696e74b455::t_5e762cfe1f331b 10
+  s_1916696e74b455::t_d7fc8125b099ea 187-190
+  s_1916696e74b455::t_945cbcdf04c05b 219-222,227
+  s_1916696e74b455::t_e8061168bc0e61 125
+  s_1916696e74b455::t_443c48da4bdef1 208
+  s_1916696e74b455::t_ae0222ae9f12a8 88-94,99-101
+tests/test_progress.py
+  s_1916696e74b455::t_16625e5d64ff2e 45-46,117-118
+  s_1916696e74b455::t_62187adaf5a08f 33-36,48
+  s_1916696e74b455::t_fef93f6225ef58 52-54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "582bdf8b7867cbc3db94d00b954960700d5ec89f",
+  "prompts": {},
+  "sessions": {
+    "s_1916696e74b455": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c7d1308e-a823-4273-8434-53d749b3f00e",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Claudio Spiess <claudiosv@users.noreply.github.com>"
+    }
+  }
+}
