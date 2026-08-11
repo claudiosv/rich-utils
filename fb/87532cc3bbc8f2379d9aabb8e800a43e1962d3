@@ -1,0 +1,24 @@
+src/rich_utils/progress.py
+  s_1916696e74b455::t_9ca7ef8e01f0a3 97
+  s_1916696e74b455::t_3da3b3fc028651 122,124,133,135-136,138,140,144
+README.md
+  s_1916696e74b455::t_4b8425b6f99753 49,51-52
+tests/test_progress.py
+  s_1916696e74b455::t_fc52d88c312df5 26,36,42-56,60-65,67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "fb87532cc3bbc8f2379d9aabb8e800a43e1962d3",
+  "prompts": {},
+  "sessions": {
+    "s_1916696e74b455": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c7d1308e-a823-4273-8434-53d749b3f00e",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Claudio Spiess <claudiosv@users.noreply.github.com>"
+    }
+  }
+}
