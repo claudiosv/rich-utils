@@ -16,3 +16,6 @@ htmlcov/
 
 # CodeGraph local index
 .codegraph/
+
+# macOS
+.DS_Store

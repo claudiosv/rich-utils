@@ -284,8 +284,7 @@ class RichTracker:
         self.live.stop()
 
     def track(self, iterable: Collection) -> Generator[Any, Any]:
-        task = self.progress.add_task(f"[cyan]{self.description}", total=len(iterable))
+        self.progress.update(self.task_id, total=len(iterable))
         for item in iterable:
             yield item
-            self.progress.advance(task)
-            # self.progress.update(task,)
+            self.progress.advance(self.task_id)

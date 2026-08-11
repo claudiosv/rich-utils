@@ -116,6 +116,10 @@ def test_rich_tracker_track_advances_progress(console):
     with RichTracker(console=console) as tracker:
         items = list(tracker.track([1, 2, 3]))
         assert items == [1, 2, 3]
+        # track() must advance the tracker's own task, not create a second one.
+        assert len(tracker.progress.tasks) == 1
+        assert tracker.task.completed == 3
+        assert tracker.task.total == 3
 
 
 def test_rich_tracker_description_param_is_not_applied_to_task(console):

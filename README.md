@@ -6,6 +6,8 @@ generator-based progress helper, a live "tracker" widget with a spinner header, 
 human-readable rate/throughput column, and a self-contained animated "shimmer" progress
 display for CLI tools.
 
+![Demo of every rich-utils helper running in sequence: rich_track, RichTracker, rich_progress, rich_pandas, RateColumn, and ShimmerProgress](assets/demo.gif)
+
 ## Installation
 
 ```bash
@@ -25,7 +27,7 @@ Requires Python 3.14+.
 ### `rich_track` — drop-in `tqdm`-style iterator wrapper
 
 ```python
-from rich_utils import rich_track
+from rich_utils.progress import rich_track
 
 for item in rich_track(range(100), description="Processing..."):
     ...
@@ -91,4 +93,26 @@ uv sync                                                          # install deps
 uv run pytest                                                    # run tests
 uv run pytest --cov=rich_utils --cov-report=html --cov-report=term-missing
 open htmlcov/index.html                                          # view coverage report
+```
+
+### Demos
+
+Each helper has a standalone, runnable demo script under `scripts/demos/`:
+
+```bash
+uv run python scripts/demos/rich_track_demo.py
+uv run python scripts/demos/rich_tracker_demo.py
+uv run python scripts/demos/rich_progress_demo.py
+uv run python scripts/demos/rich_pandas_demo.py
+uv run python scripts/demos/rate_column_demo.py
+uv run python scripts/demos/shimmer_progress_demo.py
+```
+
+`scripts/run_all_demos.py` runs all of them back to back (used to record the GIF
+above), and `scripts/demo.tape` is the [VHS](https://github.com/charmbracelet/vhs)
+tape that recorded it:
+
+```bash
+uv run python scripts/run_all_demos.py   # run every demo in one go
+vhs scripts/demo.tape                    # re-record assets/demo.gif
 ```
